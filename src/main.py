@@ -1,12 +1,16 @@
 from argparse import ArgumentParser
-from reportanalyzer import ReportAnalyzer
+
+from category_classifier import CategoryClassifier
+from report_parser import ReportParser
 
 
 def main(args):
-    print(args.report_path, args.output)
-    rep_anal = ReportAnalyzer(args.report_path)
-    rep_anal.analyze()
-    rep_anal.generate_csv(args.output)
+    rp = ReportParser(args.report_path)
+    payment_records = rp.parse()
+
+    cc = CategoryClassifier(payment_records)
+    classified_data = cc.classify()
+    # TODO generate_csv(args.output)
 
 
 if __name__ == '__main__':

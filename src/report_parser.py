@@ -3,15 +3,15 @@ import settings
 from PyPDF2 import PdfFileReader
 
 
-class ReportAnalyzer:
+class ReportParser:
     def __init__(self, pdf_file):
         self.file_path = pdf_file
         self.txt = ""
 
-    def analyze(self):
+    def parse(self):
         self._read_text()
         self._trunc_excessive_data()
-        self._search_for_payment_records()
+        return self._search_for_payment_records()
 
     def _read_text(self):
         txt = ""
@@ -34,13 +34,9 @@ class ReportAnalyzer:
 
         row_regex = re.compile(f"{date_regex}{date_regex}TRANSAKCJA KART¥ DEBETOW¥{price_regex}{transaction_name_regex}{payment_info_suffix}")
 
-        found_records = row_regex.findall(self.txt)  # TODO transform it into dictionary. Dictionary save into self.data
+        found_records = row_regex.findall(self.txt)
 
         # map tuple into dictionary
         res = map(lambda x: {"posting_date": x[0], "payment_date": x[1], "price": float(x[2].replace(',', '.')),
                              "payment_name": x[4]}, found_records)
-        self.data = list(res)
         return res
-
-    def generate_csv(self, output):
-        pass  # TODO
