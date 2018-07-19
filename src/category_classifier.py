@@ -18,7 +18,7 @@ class CategoryClassifier:
             for category in self.categories:
                 for elem_name in self.categories[category]:
                     # move out re.search arguments outside call to make code logic for case sensitivity problem
-                    args = [elem_name, record['payment_name']]
+                    args = [elem_name, ''.join([record['payment_type'], record['payment_name']])]
                     if not case_sensitive:
                         args.append(re.IGNORECASE)
 

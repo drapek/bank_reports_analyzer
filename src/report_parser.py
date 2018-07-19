@@ -32,11 +32,14 @@ class ReportParser:
         transaction_name_regex = r'(.*?)'
         payment_info_suffix = r'Data transakcji:'
 
-        row_regex = re.compile(f"{date_regex}{date_regex}TRANSAKCJA KART¥ DEBETOW¥{price_regex}{transaction_name_regex}{payment_info_suffix}")
+        row_regex = re.compile(f"{date_regex}{date_regex}(TRANSAKCJA KART¥ DEBETOW¥|"
+                               f"P£ACÊ Z T-MOBILE US£UGI BANKOWE|PRZELEW KRAJOWY)"
+                               f"{price_regex}{transaction_name_regex}{payment_info_suffix}")
 
         found_records = row_regex.findall(self.txt)
 
         # map tuple into dictionary
-        res = map(lambda x: {"posting_date": x[0], "payment_date": x[1], "price": float(x[2].replace(',', '.')),
-                             "payment_name": x[4]}, found_records)
+        res = map(lambda x: {"posting_date": x[0], "payment_date": x[1], "payment_type": x[2],
+                             "price": float(x[3].replace(',', '.')),
+                             "payment_name": x[5]}, found_records)
         return res

@@ -2,7 +2,14 @@ food:
   - żabka
   - coffee
   - carrefour
+
 transport:
   - uber
   - trafficar
   - panek
+
+payU:
+  - payU
+
+bank_transfer:
+  - przelew
