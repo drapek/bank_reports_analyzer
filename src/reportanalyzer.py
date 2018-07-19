@@ -27,14 +27,20 @@ class ReportAnalyzer:
         self.txt = self.txt[start_of_trans_table+len(settings.START_TRANSFERS_TABLE_PATTERN):]
 
     def _search_for_payment_records(self):
-        date_regex = r'20\d\d\.\d\d\.\d\d'
-        price_regex = r'-?\d+\,\d\d'
-        transaction_name_regex = r'.*'
-        payment_info_suffix = r'Data transakcji:.*'
+        date_regex = r'(20\d\d\.\d\d\.\d\d)'
+        price_regex = r'(-?\d+\,\d\d)([0-9€,]*)'  # this price has scientific notation (eg. 23.234e23) so truncate the end
+        transaction_name_regex = r'(.*?)'
+        payment_info_suffix = r'Data transakcji:'
 
         row_regex = re.compile(f"{date_regex}{date_regex}TRANSAKCJA KART¥ DEBETOW¥{price_regex}{transaction_name_regex}{payment_info_suffix}")
-        # TODO repair regex to regonize all transactions. Not only first.
+
         found_records = row_regex.findall(self.txt)  # TODO transform it into dictionary. Dictionary save into self.data
+
+        # map tuple into dictionary
+        res = map(lambda x: {"posting_date": x[0], "payment_date": x[1], "price": float(x[2].replace(',', '.')),
+                             "payment_name": x[4]}, found_records)
+        self.data = list(res)
+        return res
 
     def generate_csv(self, output):
         pass  # TODO
