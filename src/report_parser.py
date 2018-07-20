@@ -30,7 +30,7 @@ class ReportParser:
         date_regex = r'(20\d\d\.\d\d\.\d\d)'
         price_regex = r'(-?\d+\,\d\d)([0-9€,]*)'  # this price has scientific notation (eg. 23.234e23) so truncate the end
         transaction_name_regex = r'(.*?)'
-        payment_info_suffix = r'Data transakcji:'
+        payment_info_suffix = r'(Data transakcji:|Datatransakcji)'
 
         row_regex = re.compile(f"{date_regex}{date_regex}(TRANSAKCJA KART¥ DEBETOW¥|"
                                f"P£ACÊ Z T-MOBILE US£UGI BANKOWE|PRZELEW KRAJOWY)"

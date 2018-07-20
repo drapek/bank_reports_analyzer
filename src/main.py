@@ -10,6 +10,8 @@ def main(args):
 
     cc = CategoryClassifier(payment_records)
     classified_data = cc.classify()
+
+    print("debug")
     # TODO generate_csv(args.output)
 
 

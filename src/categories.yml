@@ -1,12 +1,39 @@
 food:
   - żabka
+  - zabka
+  - biedronka
+  - lidl
+  - aldi
+  - kaufland
   - coffee
   - carrefour
+  - McDonalds
+  - freshmarket
+  - stonoga
+  - kurka wodna
+  - delikatesy
+  - vending
+  - subway
+  - bar
+  - cafe
+  - hami
+  - wars
+  - top market
+  - piwpaw
+  - tacos
+  - kebab
+  - amrit
+  - burger
+
+health:
+  - apteka
+  - rossman
 
 transport:
   - uber
   - trafficar
   - panek
+  - orlen
 
 payU:
   - payU
