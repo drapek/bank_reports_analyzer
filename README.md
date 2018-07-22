@@ -24,7 +24,9 @@ python main.py <t-mobile pdf report> -v
 ```
 
 ## Screenshot of example pdf file:
-![screnshot](https://github.com/drapek/bank_reports_analyzer/blob/develop/doc/screenshot_1.png?raw=true)
+<kbd>
+ <img src="https://github.com/drapek/bank_reports_analyzer/blob/develop/doc/screenshot_1.png">
+</kbd>
 
 ## Functionality to add in the future:
 * sort transaction in output csv by payment date
