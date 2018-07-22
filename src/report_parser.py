@@ -27,13 +27,14 @@ class ReportParser:
         self.txt = self.txt[start_of_trans_table+len(settings.START_TRANSFERS_TABLE_PATTERN):]
 
     def _search_for_payment_records(self):
-        date_regex = r'(20\d\d\.\d\d\.\d\d)'
-        price_regex = r'(-?\d+\,\d\d)([0-9€,]*)'  # this price has scientific notation (eg. 23.234e23) so truncate the end
+        date_regex = r'20\d\d\.\d\d\.\d\d'
+        price_regex = r'(-?\d+\,\d\d)(\d\d€\d\d\d,\d\d)?'  # this price has scientific notation (eg. 23.234e23)
         transaction_name_regex = r'(.*?)'
-        payment_info_suffix = r'(Data transakcji:|Datatransakcji)'
-
-        row_regex = re.compile(f"{date_regex}{date_regex}(TRANSAKCJA KART¥ DEBETOW¥|"
-                               f"P£ACÊ Z T-MOBILE US£UGI BANKOWE|PRZELEW KRAJOWY)"
+        payment_info_suffix = f'(Kwota.?i.?waluta.?oryginalna.?transakcji|(?={date_regex}))'
+        # TODO regex finish row on the date of next row.
+        row_regex = re.compile(f"({date_regex})({date_regex})(TRANSAKCJA KART¥ DEBETOW¥|"
+                               f"P£ACÊ Z T-MOBILE US£UGI BANKOWE|PRZELEW KRAJOWY|DO£ADOWANIE TELEFONU|"
+                               f"PRZELEW W RAMACH BANKU NA RACH OBCY|PRZELEW P2P)"
                                f"{price_regex}{transaction_name_regex}{payment_info_suffix}")
 
         found_records = row_regex.findall(self.txt)
