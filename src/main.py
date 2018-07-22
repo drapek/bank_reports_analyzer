@@ -9,7 +9,7 @@ def main(args):
     raw_payment_records = rp.parse()
 
     if args.verbose:
-        print("Read {} records.".format(len(list(raw_payment_records))))
+        print(f"Read {rp.records_count} records.")
 
     cc = CategoryClassifier(raw_payment_records)
     classified_data = cc.classify()

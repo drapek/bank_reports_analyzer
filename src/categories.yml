@@ -14,7 +14,7 @@ food:
   - delikatesy
   - vending
   - subway
-  - bar
+  - "bar " # with space because system confuses it with polish surnames like Bartek.
   - cafe
   - hami
   - top market
@@ -23,6 +23,8 @@ food:
   - kebab
   - amrit
   - burger
+  - pizz
+  - "wars " # because it was confused with Warszawa
 
 health:
   - apteka

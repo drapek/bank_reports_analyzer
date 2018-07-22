@@ -6,6 +6,7 @@ from PyPDF2 import PdfFileReader
 class ReportParser:
     def __init__(self, pdf_file):
         self.file_path = pdf_file
+        self.records_count = 0
         self.txt = ""
 
     def parse(self):
@@ -39,6 +40,7 @@ class ReportParser:
 
         found_records = row_regex.findall(self.txt)
 
+        self.records_count = len(found_records)
         # map tuple into dictionary
         res = map(lambda x: {"posting_date": x[0], "payment_date": x[1], "payment_type": x[2],
                              "price": float(x[3].replace(',', '.')),
