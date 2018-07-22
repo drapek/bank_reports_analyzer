@@ -14,7 +14,7 @@ food:
   - delikatesy
   - vending
   - subway
-  - "bar " # with space because system confuses it with polish surnames like Bartek.
+  - "bar " # with space because system confuses it with polish first names like Bartek.
   - cafe
   - hami
   - top market
