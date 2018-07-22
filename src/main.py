@@ -1,18 +1,25 @@
 from argparse import ArgumentParser
-
 from category_classifier import CategoryClassifier
 from report_parser import ReportParser
+from stats_generator import StatsGenerator
 
 
 def main(args):
     rp = ReportParser(args.report_path)
-    payment_records = rp.parse()
+    raw_payment_records = rp.parse()
 
-    cc = CategoryClassifier(payment_records)
+    cc = CategoryClassifier(raw_payment_records)
     classified_data = cc.classify()
 
-    print("debug")
-    # TODO generate_csv(args.output)
+    sg = StatsGenerator(classified_data)
+    stats_csv = sg.generate_csv()
+
+    if args.output:
+        with open(args.output, "w") as f_write_csv:
+            f_write_csv.write(stats_csv)
+            f_write_csv.close()
+    else:
+        print(stats_csv)
 
 
 if __name__ == '__main__':

@@ -13,7 +13,7 @@ class CategoryClassifier:
         res = []
         for record in self.data:
             category_matches = set()  # eg. transport, food
-            elem_name_matches = set()  # eg. uber, carrefour etc.
+            sub_category_matches = set()  # eg. uber, carrefour etc.
 
             for category in self.categories:
                 for elem_name in self.categories[category]:
@@ -23,11 +23,12 @@ class CategoryClassifier:
                         args.append(re.IGNORECASE)
 
                     if re.search(*args):
-                        elem_name_matches.add(elem_name)
+                        sub_category_matches.add(elem_name)
                         category_matches.add(category)
 
-            record['categories'] = category_matches
-            record['categories_found_elements'] = elem_name_matches
+            record['categories'] = category_matches if len(category_matches) > 0 else {"not assigned"}
+            record['sub_categories'] = sub_category_matches if len(sub_category_matches) > 0 else {"not assigned"}
+
             res.append(record)
         self.classified_data = res
         return res
